@@ -645,11 +645,11 @@
         "id": "privacy.unlisted.long"
       },
       {
-        "defaultMessage": "Followers-only",
+        "defaultMessage": "Following-only",
         "id": "privacy.private.short"
       },
       {
-        "defaultMessage": "Post to followers only",
+        "defaultMessage": "Post to following users only",
         "id": "privacy.private.long"
       },
       {
@@ -794,7 +794,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Your account is not {locked}. Anyone can follow you to view your follower-only posts.",
+        "defaultMessage": "This post is for following users. Only users you're following can view your private posts.",
         "id": "compose_form.lock_disclaimer"
       },
       {
