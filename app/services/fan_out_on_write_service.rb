@@ -65,7 +65,9 @@ class FanOutOnWriteService < BaseService
 
     status.in_reply_to_account.following.where(domain: nil).joins(:user).where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |followings|
       FeedInsertWorker.push_bulk(followings) do |following|
-        [status.id, following.id, :home]
+        if (status.account.following(following))
+          [status.id, following.id, :home]
+        end
       end
     end
   end
