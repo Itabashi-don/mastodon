@@ -13,7 +13,7 @@ class FanOutOnWriteService < BaseService
     if status.direct_visibility?
       deliver_to_mentioned_followers(status)
     elsif status.private_visibility?
-      if status.reply? && status.in_reply_to_account_id != status.account_id
+      if status.reply?
         deliver_to_followings_of_repliee(status)
       else
         deliver_to_followings(status)
@@ -65,7 +65,7 @@ class FanOutOnWriteService < BaseService
 
     status.in_reply_to_account.following.where(domain: nil).joins(:user).where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |followings|
       FeedInsertWorker.push_bulk(followings) do |following|
-        if (status.account.following(following))
+        if (status.account.following?(following))
           [status.id, following.id, :home]
         end
       end
