@@ -31,6 +31,8 @@ const messages = defineMessages({
   discover: { id: 'navigation_bar.discover', defaultMessage: 'Discover' },
   personal: { id: 'navigation_bar.personal', defaultMessage: 'Personal' },
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
+  
+  announcements: { id: 'navigation_bar.announcements', defaultMessage: 'Announcements from Admin' },
 });
 
 const mapStateToProps = state => ({
@@ -81,24 +83,29 @@ export default class GettingStarted extends ImmutablePureComponent {
     let i = 1;
     let height = (multiColumn) ? 0 : 60;
 
+    navItems.push(<ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />);
+    height += 34;
+
     if (multiColumn) {
       navItems.push(
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.community_timeline)} to='/timelines/public/local' />,
-        <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />
+        <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />
       );
 
-      height += 34*2 + 48*2;
+      height += 48*2;
     }
 
+    navItems.push(<ColumnLink key={i++} icon='info-circle' text={intl.formatMessage(messages.announcements)} to='/timelines/tag/板橋丼インフォ' />);
+    height += 48;
+
     navItems.push(
+      <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
       <ColumnLink key={i++} icon='envelope' text={intl.formatMessage(messages.direct)} to='/timelines/direct' />,
       <ColumnLink key={i++} icon='star' text={intl.formatMessage(messages.favourites)} to='/favourites' />,
       <ColumnLink key={i++} icon='list-ul' text={intl.formatMessage(messages.lists)} to='/lists' />
     );
 
-    height += 48*3;
+    height += 34 + 48*3;
 
     if (myAccount.get('locked')) {
       navItems.push(<ColumnLink key={i++} icon='users' text={intl.formatMessage(messages.follow_requests)} badge={badgeDisplay(unreadFollowRequests, 40)} to='/follow_requests' />);
