@@ -1198,6 +1198,10 @@
         "id": "navigation_bar.security"
       },
       {
+        "defaultMessage": "Announcements from Admin",
+        "id": "navigation_bar.announcements"
+      },
+      {
         "defaultMessage": "Getting started",
         "id": "getting_started.heading"
       },
@@ -1228,6 +1232,10 @@
       {
         "defaultMessage": "Terms of service",
         "id": "getting_started.terms"
+      },
+      {
+        "defaultMessage": "FAQ",
+        "id": "getting_started.faq"
       },
       {
         "defaultMessage": "Developers",
