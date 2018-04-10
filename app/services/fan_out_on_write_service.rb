@@ -55,6 +55,18 @@ class FanOutOnWriteService < BaseService
     end
   end
 
+  def deliver_to_users_in_list(status)
+    Rails.logger.debug "Delivering status #{status.id} to users in lists"
+
+    list = status.account.lists.find_by(id: status.visibility)
+
+    list.accounts.where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |users|
+      FeedInsertWorker.push_bulk(users) do |user|
+        [status.id, user.id, :home]
+      end
+    end
+  end
+
   def deliver_to_mentioned_followers(status)
     Rails.logger.debug "Delivering status #{status.id} to mentioned followers"
 
