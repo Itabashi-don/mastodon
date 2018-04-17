@@ -4,6 +4,8 @@ class StatusesController < ApplicationController
   include SignatureAuthentication
   include Authorization
 
+  ANCESTORS_LIMIT = 20
+
   layout 'public'
 
   before_action :set_account
@@ -11,13 +13,15 @@ class StatusesController < ApplicationController
   before_action :set_link_headers
   before_action :check_account_suspension
   before_action :redirect_to_original, only: [:show]
+  before_action :set_referrer_policy_header, only: [:show]
   before_action :set_cache_headers
 
   def show
     respond_to do |format|
       format.html do
-        @ancestors   = @status.reply? ? cache_collection(@status.ancestors(current_account), Status) : []
-        @descendants = cache_collection(@status.descendants(current_account), Status)
+        @ancestors     = @status.reply? ? cache_collection(@status.ancestors(ANCESTORS_LIMIT, current_account), Status) : []
+        @next_ancestor = @ancestors.size < ANCESTORS_LIMIT ? nil : @ancestors.shift
+        @descendants   = cache_collection(@status.descendants(current_account), Status)
 
         render 'stream_entries/show'
       end
@@ -77,5 +81,10 @@ class StatusesController < ApplicationController
 
   def redirect_to_original
     redirect_to ::TagManager.instance.url_for(@status.reblog) if @status.reblog?
+  end
+
+  def set_referrer_policy_header
+    return if @status.public_visibility? || @status.unlisted_visibility?
+    response.headers['Referrer-Policy'] = 'origin'
   end
 end

@@ -256,11 +256,7 @@ namespace :mastodon do
             q.modify :strip
           end
 
-          env['SMTP_OPENSSL_VERIFY_MODE'] = prompt.ask('SMTP OpenSSL verify mode:') do |q|
-            q.required
-            q.default 'peer'
-            q.modify :strip
-          end
+          env['SMTP_OPENSSL_VERIFY_MODE'] = prompt.select('SMTP OpenSSL verify mode:', %w(none peer client_once fail_if_no_peer_cert))
         end
 
         env['SMTP_FROM_ADDRESS'] = prompt.ask('E-mail address to send e-mails "from":') do |q|
@@ -795,7 +791,7 @@ namespace :mastodon do
         progress_bar.increment
 
         begin
-          res = Request.new(:head, account.uri).perform
+          code = Request.new(:head, account.uri).perform(&:code)
         rescue StandardError
           # This could happen due to network timeout, DNS timeout, wrong SSL cert, etc,
           # which should probably not lead to perceiving the account as deleted, so
@@ -803,7 +799,7 @@ namespace :mastodon do
           next
         end
 
-        if [404, 410].include?(res.code)
+        if [404, 410].include?(code)
           if options[:force]
             SuspendAccountService.new.call(account)
             account.destroy

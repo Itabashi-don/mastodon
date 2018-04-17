@@ -34,6 +34,10 @@ class PrivacyDropdownMenu extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
   };
 
+  state = {
+    mounted: false,
+  };
+
   handleDocumentClick = e => {
     if (this.node && !this.node.contains(e.target)) {
       this.props.onClose();
@@ -56,6 +60,7 @@ class PrivacyDropdownMenu extends React.PureComponent {
   componentDidMount () {
     document.addEventListener('click', this.handleDocumentClick, false);
     document.addEventListener('touchend', this.handleDocumentClick, listenerOptions);
+    this.setState({ mounted: true });
   }
 
   componentWillUnmount () {
@@ -68,12 +73,16 @@ class PrivacyDropdownMenu extends React.PureComponent {
   }
 
   render () {
+    const { mounted } = this.state;
     const { style, items, value } = this.props;
 
     return (
       <Motion defaultStyle={{ opacity: 0, scaleX: 0.85, scaleY: 0.75 }} style={{ opacity: spring(1, { damping: 35, stiffness: 400 }), scaleX: spring(1, { damping: 35, stiffness: 400 }), scaleY: spring(1, { damping: 35, stiffness: 400 }) }}>
         {({ opacity, scaleX, scaleY }) => (
-          <div className='privacy-dropdown__dropdown' style={{ ...style, opacity: opacity, transform: `scale(${scaleX}, ${scaleY})` }} ref={this.setRef}>
+          // It should not be transformed when mounting because the resulting
+          // size will be used to determine the coordinate of the menu by
+          // react-overlays
+          <div className='privacy-dropdown__dropdown' style={{ ...style, opacity: opacity, transform: mounted ? `scale(${scaleX}, ${scaleY})` : null }} ref={this.setRef}>
             {items.map(item => (
               <div role='button' tabIndex='0' key={item.value} data-index={item.value} onKeyDown={this.handleClick} onClick={this.handleClick} className={classNames('privacy-dropdown__option', { active: item.value === value })}>
                 <div className='privacy-dropdown__option__icon'>
@@ -109,9 +118,10 @@ export default class PrivacyDropdown extends React.PureComponent {
 
   state = {
     open: false,
+    placement: null,
   };
 
-  handleToggle = () => {
+  handleToggle = ({ target }) => {
     if (this.props.isUserTouching()) {
       if (this.state.open) {
         this.props.onModalClose();
@@ -122,6 +132,8 @@ export default class PrivacyDropdown extends React.PureComponent {
         });
       }
     } else {
+      const { top } = target.getBoundingClientRect();
+      this.setState({ placement: top * 2 < innerHeight ? 'bottom' : 'top' });
       this.setState({ open: !this.state.open });
     }
   }
@@ -138,7 +150,7 @@ export default class PrivacyDropdown extends React.PureComponent {
   handleKeyDown = e => {
     switch(e.key) {
     case 'Enter':
-      this.handleToggle();
+      this.handleToggle(e);
       break;
     case 'Escape':
       this.handleClose();
@@ -168,7 +180,7 @@ export default class PrivacyDropdown extends React.PureComponent {
 
   render () {
     const { value, intl } = this.props;
-    const { open } = this.state;
+    const { open, placement } = this.state;
 
     const valueOption = this.options.find(item => item.value === value);
 
@@ -188,7 +200,7 @@ export default class PrivacyDropdown extends React.PureComponent {
           />
         </div>
 
-        <Overlay show={open} placement='bottom' target={this}>
+        <Overlay show={open} placement={placement} target={this}>
           <PrivacyDropdownMenu
             items={this.options}
             value={value}
