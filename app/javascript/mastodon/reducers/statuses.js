@@ -1,6 +1,7 @@
 import {
   REBLOG_REQUEST,
   REBLOG_FAIL,
+  QUOTE,
   FAVOURITE_REQUEST,
   FAVOURITE_FAIL,
 } from '../actions/interactions';
@@ -55,6 +56,8 @@ export default function statuses(state = initialState, action) {
     return state.withMutations(map => {
       action.ids.forEach(id => map.setIn([id, 'hidden'], true));
     });
+  case QUOTE:
+    return normalizeStatus(state, action.response);
   case TIMELINE_DELETE:
     return deleteStatus(state, action.id, action.references);
   default:
