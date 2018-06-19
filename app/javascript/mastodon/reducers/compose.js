@@ -155,6 +155,8 @@ const privacyPreference = (a, b) => {
     return 'direct';
   } else if (a === 'private' || b === 'private') {
     return 'private';
+  } else if (a === 'limited' || b === 'limited') {
+    return 'limited';
   } else if (a === 'unlisted' || b === 'unlisted') {
     return 'unlisted';
   } else {
