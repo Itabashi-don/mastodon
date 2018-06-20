@@ -77,6 +77,7 @@ class Status extends ImmutablePureComponent {
     onHeightChange: PropTypes.func,
     onToggleHidden: PropTypes.func,
     onToggleCollapsed: PropTypes.func,
+    onQuoteToggleHidden: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     unread: PropTypes.bool,
@@ -132,6 +133,15 @@ class Status extends ImmutablePureComponent {
     this.context.router.history.push(`/statuses/${status.getIn(['reblog', 'id'], status.get('id'))}`);
   }
 
+  handleQuoteClick = () => {
+    if (!this.context.router) {
+      return;
+    }
+
+    const { status } = this.props;
+    this.context.router.history.push(`/statuses/${status.getIn(['reblog', 'quote', 'id'], status.getIn(['quote', 'id']))}`);
+  }
+
   handleExpandClick = (e) => {
     if (this.props.onClick) {
       this.props.onClick();
@@ -163,6 +173,10 @@ class Status extends ImmutablePureComponent {
   handleCollapsedToggle = isCollapsed => {
     this.props.onToggleCollapsed(this._properStatus(), isCollapsed);
   }
+
+  handleExpandedQuoteToggle = () => {
+    this.props.onQuoteToggleHidden(this._properStatus());
+  };
 
   renderLoadingMediaGallery () {
     return <div className='media-gallery' style={{ height: '110px' }} />;
@@ -247,6 +261,12 @@ class Status extends ImmutablePureComponent {
     } else {
       return status;
     }
+  }
+
+  _properQuoteStatus () {
+    const { status } = this.props;
+
+    return status.get('quote');
   }
 
   handleRef = c => {
@@ -413,6 +433,42 @@ class Status extends ImmutablePureComponent {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
 
+    let quote = null;
+    if (status.get('quote', null) !== null) {
+      let quote_status = status.get('quote');
+
+      let quote_media = null;
+      if (quote_status.get('media_attachments').size > 0) {
+        if (this.props.muted || quote_status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
+          quote_media = (
+            <AttachmentList
+              compact
+              media={quote_status.get('media_attachments')}
+            />
+          );
+        } else {
+          quote_media = (
+            <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery} >
+              {Component => <Component media={quote_status.get('media_attachments')} sensitive={quote_status.get('sensitive')} height={110} onOpenMedia={this.props.onOpenMedia} quote={true} />}
+            </Bundle>
+          );
+        }
+      }
+
+      quote = (
+        <div className={classNames('quote-status', `status-${quote_status.get('visibility')}`, { muted: this.props.muted })} data-id={quote_status.get('id')}>
+          <div className='status__info'>
+            <a onClick={this.handleAccountClick} target='_blank' data-id={quote_status.getIn(['account', 'id'])} href={quote_status.getIn(['account', 'url'])} title={quote_status.getIn(['account', 'acct'])} className='status__display-name'>
+              <div className='status__avatar'><Avatar account={quote_status.get('account')} size={18} /></div>
+              <DisplayName account={quote_status.get('account')} />
+            </a>
+          </div>
+          <StatusContent status={quote_status} onClick={this.handleQuoteClick} expanded={!status.get('quote_hidden')} onExpandedToggle={this.handleExpandedQuoteToggle} />
+          {quote_media}
+        </div>
+      );
+    }
+
     return (
       <HotKeys handlers={handlers}>
         <div className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, { 'status__wrapper-reply': !!status.get('in_reply_to_id'), read: unread === false, focusable: !this.props.muted })} tabIndex={this.props.muted ? null : 0} data-featured={featured ? 'true' : null} aria-label={textForScreenReader(intl, status, rebloggedByText)} ref={this.handleRef}>
@@ -434,6 +490,7 @@ class Status extends ImmutablePureComponent {
 
             <StatusContent status={status} onClick={this.handleClick} expanded={!status.get('hidden')} showThread={showThread} onExpandedToggle={this.handleExpandedToggle} collapsable onCollapsedToggle={this.handleCollapsedToggle} />
 
+            {quote}
             {media}
 
             <StatusActionBar status={status} account={account} {...other} />

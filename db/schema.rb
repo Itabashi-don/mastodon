@@ -731,6 +731,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_110808) do
     t.bigint "account_id", null: false
     t.bigint "application_id"
     t.bigint "in_reply_to_account_id"
+    t.bigint "quote_id"
     t.bigint "poll_id"
     t.datetime "deleted_at"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
