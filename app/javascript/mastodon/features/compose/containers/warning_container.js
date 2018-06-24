@@ -20,7 +20,7 @@ const WarningWrapper = ({ needsLockWarning, needsLimitedWarning, hashtagWarning,
   }
 
   if (needsLimitedWarning) {
-    return <Warning message={<FormattedMessage id='compose_form.limited_disclaimer' defaultMessage="This post is for followed users. Only users you're following can view ones, unlike {private}." values={{ private: <FormattedMessage id='privacy.private.short' defaultMessage='Followers-only' /> }} />} />} />;
+    return <Warning message={<FormattedMessage id='compose_form.limited_disclaimer' defaultMessage="This post is for followed users. Only users you're following can view ones, unlike {private}." values={{ private: <FormattedMessage id='privacy.private.short' defaultMessage='Followers-only' /> }} />} />;
   }
 
   if (hashtagWarning) {
