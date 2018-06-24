@@ -402,7 +402,7 @@ class Status < ApplicationRecord
   end
 
   def increment_counter_caches
-    return if direct_visibility?
+    return if limited_visibility? || direct_visibility?
 
     if association(:account).loaded?
       account.update_attribute(:statuses_count, account.statuses_count + 1)
@@ -420,7 +420,7 @@ class Status < ApplicationRecord
   end
 
   def decrement_counter_caches
-    return if direct_visibility? || marked_for_mass_destruction?
+    return if limited_visibility? || direct_visibility? || marked_for_mass_destruction?
 
     if association(:account).loaded?
       account.update_attribute(:statuses_count, [account.statuses_count - 1, 0].max)

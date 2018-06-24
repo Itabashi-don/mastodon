@@ -50,25 +50,9 @@ class FanOutOnWriteService < BaseService
   def deliver_to_followed_users(status)
     Rails.logger.debug "Delivering status #{status.id} to followed users"
 
-    status.account.followers.where(domain: nil).joins(:user).where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |followers|
+    status.account.followers_for_local_distribution.select(:id).reorder(nil).find_in_batches do |followers|
       FeedInsertWorker.push_bulk(followers) do |follower|
-        if (status.account.following?(follower))
-          [status.id, follower.id, :home]
-        end
-      end
-    end
-  end
-
-  def deliver_to_followed_users_of_repliee(status)
-    Rails.logger.debug "Delivering status #{status.id} to followed users of repliee"
-
-    repliee = Account.find_by(id: status.in_reply_to_account_id)
-
-    repliee.followers.where(domain: nil).joins(:user).where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |followers|
-      FeedInsertWorker.push_bulk(followers) do |follower|
-        if (repliee.following?(follower) && status.account.following?(follower))
-          [status.id, follower.id, :home]
-        end
+        [status.id, follower.id, :home] if status.account.following?(follower)
       end
     end
   end
