@@ -684,8 +684,6 @@ fr:
     show_more: Afficher plus
     title: '%{name} : "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Abonné⋅e⋅s uniquement
       private_long: Seul⋅e⋅s vos abonné⋅e⋅s verront vos statuts
       public: Public

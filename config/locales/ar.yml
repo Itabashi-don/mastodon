@@ -676,8 +676,6 @@ ar:
     show_more: أظهر المزيد
     title: '%{name} : "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: إعرض فقط لمتتبعيك
       private_long: إعرضه لمتتبعيك فقط
       public: للعامة

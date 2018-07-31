@@ -596,8 +596,6 @@ sr:
     show_more: Прикажи још
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Само пратиоци
       private_long: Само прикажи пратиоцима
       public: Јавно

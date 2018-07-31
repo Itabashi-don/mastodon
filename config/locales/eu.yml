@@ -685,8 +685,6 @@ eu:
     show_more: Erakutsi gehiago
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Jarraitzaileak besterik ez
       private_long: Erakutsi jarraitzaileei besterik ez
       public: Publikoa

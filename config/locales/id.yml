@@ -292,8 +292,6 @@ id:
     over_character_limit: melebihi %{max} karakter
     show_more: Tampilkan selengkapnya
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Khusus pengikut
       private_long: Hanya tampilkan ke pengikut
       public: Publik

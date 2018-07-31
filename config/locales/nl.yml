@@ -686,8 +686,6 @@ nl:
     show_more: Meer tonen
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Alleen volgers
       private_long: Alleen aan volgers tonen
       public: Openbaar

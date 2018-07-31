@@ -673,8 +673,6 @@ zh-CN:
     show_more: 显示更多
     title: "%{name}：“%{quote}”"
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: 仅关注者
       private_long: 只有关注你的用户能看到
       public: 公开

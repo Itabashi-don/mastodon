@@ -676,8 +676,6 @@ fi:
     show_more: Näytä lisää
     title: "%{name}: ”%{quote}”"
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Vain seuraajille
       private_long: Näytä vain seuraajille
       public: Julkinen

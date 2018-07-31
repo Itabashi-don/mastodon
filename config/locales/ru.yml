@@ -702,8 +702,6 @@ ru:
     show_more: Подробнее
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Для подписчиков
       private_long: Показывать только подписчикам
       public: Для всех

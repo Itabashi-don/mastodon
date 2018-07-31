@@ -605,8 +605,6 @@ pt:
     show_more: Mostrar mais
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Mostrar apenas para seguidores
       private_long: Mostrar apenas para seguidores
       public: Público

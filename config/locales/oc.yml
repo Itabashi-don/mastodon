@@ -743,8 +743,6 @@ oc:
     show_more: Ne veire mai
     title: '%{name} : "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Seguidors solament
       private_long: Mostrar pas qu’als seguidors
       public: Public

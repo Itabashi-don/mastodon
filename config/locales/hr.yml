@@ -137,8 +137,6 @@ hr:
     over_character_limit: prijeđen je limit od %{max} znakova
     show_more: Prikaži više
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Pokaži samo sljedbenicima
       public: Javno
       unlisted: Javno, no nemoj prikazati na javnom timelineu

@@ -684,8 +684,6 @@ co:
     show_more: Vede di più
     title: '%{name}: "%{quote}"'
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Solu per l’abbunati
       private_long: Mustrà solu à l’abbunati
       public: Pubblicu

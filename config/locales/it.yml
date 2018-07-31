@@ -585,8 +585,6 @@ it:
       reblog: Un toot condiviso non può essere fissato in cima
     show_more: Mostra di più
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Mostra solo ai tuoi seguaci
       private_long: Mostra solo ai seguaci
       public: Pubblico

@@ -293,8 +293,6 @@ tr:
     over_character_limit: "%{max} karakter limiti aşıldı"
     show_more: Daha fazla
     visibilities:
-      limited: Limited
-      limited_long: Only show to followed users
       private: Sadece takipçiler
       private_long: Sadece takipçilerime gönder
       public: Herkese açık
