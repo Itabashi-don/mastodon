@@ -687,7 +687,7 @@ ja:
     title: '%{name}: "%{quote}"'
     visibilities:
       limited: 限定公開
-      limited_long: 自分をフォローしているユーザーにのみ表示されます
+      limited_long: 自分がフォローしているユーザーにのみ表示されます
       private: フォロワー限定
       private_long: フォロワーにのみ表示されます
       public: 公開
