@@ -595,6 +595,8 @@ sr-Latn:
     show_more: Prikaži još
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Samo pratioci
       private_long: Samo prikaži pratiocima
       public: Javno

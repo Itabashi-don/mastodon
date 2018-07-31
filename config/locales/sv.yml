@@ -684,6 +684,8 @@ sv:
     show_more: Visa mer
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Endast följare
       private_long: Visa endast till följare
       public: Offentlig

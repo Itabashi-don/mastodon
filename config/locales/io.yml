@@ -270,6 +270,8 @@ io:
     over_character_limit: limito de %{max} signi ecesita
     show_more: Montrar plue
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Montrar nur a sequanti
       public: Publika
       unlisted: Publika, ma ne aperos en publika tempolinei

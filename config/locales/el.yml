@@ -685,6 +685,8 @@ el:
     show_more: Περισσότερα
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Μόνο ακόλουθοι
       private_long: Εμφάνιση μόνο σε ακόλουθους
       public: Δημόσιο

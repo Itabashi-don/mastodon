@@ -295,6 +295,8 @@ th:
     over_character_limit: character limit of %{max} exceeded
     show_more: แสดงเพิ่มอีก
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: สำหรับผู้ติดตามเท่านั้น
       private_long: ให้เห็นเฉพาะผู้ติดตาม
       public: Public

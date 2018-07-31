@@ -603,6 +603,8 @@
     show_more: Vis mer
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Privat
       private_long: Synlig kun for følgere
       public: Offentlig

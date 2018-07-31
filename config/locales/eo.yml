@@ -686,6 +686,8 @@ eo:
     show_more: Montri pli
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Montri nur al sekvantoj
       private_long: Montri nur al sekvantoj
       public: Publika

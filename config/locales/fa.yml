@@ -685,6 +685,8 @@ fa:
     show_more: نمایش
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: خصوصی
       private_long: تنها پیگیران شما می‌بینند
       public: عمومی

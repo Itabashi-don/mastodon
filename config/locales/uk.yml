@@ -282,6 +282,8 @@ uk:
     over_character_limit: перевищено ліміт символів (%{max})
     show_more: Детальніше
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Для підписників
       private_long: Показувати тількои підписникам
       public: Для всіх

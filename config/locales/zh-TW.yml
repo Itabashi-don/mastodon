@@ -265,6 +265,8 @@ zh-TW:
     over_character_limit: 超過了 %{max} 字的限制
     show_more: 顯示更多
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: 只有關注您的人能看
       public: 公開
       unlisted: 公開，但不在公共時間軸顯示

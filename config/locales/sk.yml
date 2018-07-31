@@ -672,6 +672,8 @@ sk:
       reblog: Pozdvihnutie sa nedá pripnúť
     show_more: Ukáž viac
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Iba pre sledovateľov
       private_long: Ukáž iba následovateľom
       public: Verejné

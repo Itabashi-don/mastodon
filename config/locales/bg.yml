@@ -140,6 +140,8 @@ bg:
     over_character_limit: прехвърлен лимит от %{max} символа
     show_more: Покажи повече
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Покажи само на последователите си
       public: Публично
       unlisted: Публично, но не показвай в публичния канал

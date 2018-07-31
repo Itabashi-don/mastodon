@@ -699,6 +699,8 @@ pl:
     show_more: Pokaż więcej
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Tylko dla śledzących
       private_long: Widoczne tylko dla osób, które Cię śledzą
       public: Publiczne

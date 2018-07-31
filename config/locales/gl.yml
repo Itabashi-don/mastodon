@@ -685,6 +685,8 @@ gl:
     show_more: Mostrar máis
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Só seguidoras
       private_long: Mostrar só as seguidoras
       public: Público

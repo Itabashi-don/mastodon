@@ -603,6 +603,8 @@ hu:
     show_more: Mutass többet
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to followed users
       private: Csak követőknek
       private_long: A tülk csak követőidnek jelenik meg
       public: Nyilvános
