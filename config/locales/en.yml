@@ -771,6 +771,8 @@ en:
     sign_in_to_participate: Sign in to participate in the conversation
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: Limited
+      limited_long: Only show to users you're following
       private: Followers-only
       private_long: Only show to followers
       public: Public

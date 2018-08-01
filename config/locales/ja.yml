@@ -770,6 +770,8 @@ ja:
     sign_in_to_participate: ログインして会話に参加
     title: '%{name}: "%{quote}"'
     visibilities:
+      limited: 限定公開
+      limited_long: 自分がフォローしているユーザーにのみ表示されます
       private: フォロワー限定
       private_long: フォロワーにのみ表示されます
       public: 公開
