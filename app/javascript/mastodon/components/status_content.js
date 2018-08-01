@@ -41,10 +41,8 @@ export default class StatusContent extends React.PureComponent {
       }
       link.classList.add('status-link');
 
-      if (quote) {
-        if (link.href.match(QuoteUrlFormat)) {
-          link.addEventListener('click', this.onQuoteClick.bind(this, quote[1]), false);
-        }
+      if (quote && link.href.match(QuoteUrlFormat)) {
+        link.addEventListener('click', this.onQuoteClick.bind(this, quote[1]), false);
       }
 
       let mention = this.props.status.get('mentions').find(item => link.href === item.get('url'));
@@ -54,8 +52,6 @@ export default class StatusContent extends React.PureComponent {
         link.setAttribute('title', mention.get('acct'));
       } else if (link.textContent[0] === '#' || (link.previousSibling && link.previousSibling.textContent && link.previousSibling.textContent[link.previousSibling.textContent.length - 1] === '#')) {
         link.addEventListener('click', this.onHashtagClick.bind(this, link.text), false);
-      } else if (link.href.match(/(?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\/users\/[\w-_]+\/statuses\/(.*)/)) {
-        link.addEventListener('click', this.onQuoteClick.bind(this, link.href), false);
       } else {
         link.setAttribute('title', link.href);
       }
