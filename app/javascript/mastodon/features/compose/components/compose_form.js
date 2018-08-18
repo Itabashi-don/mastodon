@@ -65,11 +65,11 @@ export default class ComposeForm extends ImmutablePureComponent {
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      this.handleSubmit();
+      this.handleSubmit(null, e.shiftKey ? 'unlisted' : null);
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e, privacy) => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
@@ -84,7 +84,7 @@ export default class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    this.props.onSubmit();
+    this.props.onSubmit(privacy);
   }
 
   onSuggestionsClearRequested = () => {
