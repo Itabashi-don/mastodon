@@ -107,7 +107,7 @@ export function directCompose(account, router) {
   };
 };
 
-export function submitCompose() {
+export function submitCompose(privacy) {
   return function (dispatch, getState) {
     const status = getState().getIn(['compose', 'text'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
@@ -115,6 +115,8 @@ export function submitCompose() {
     if ((!status || !status.length) && media.size === 0) {
       return;
     }
+
+    if (privacy) dispatch(changeComposeVisibility(privacy));
 
     dispatch(submitComposeRequest());
 
