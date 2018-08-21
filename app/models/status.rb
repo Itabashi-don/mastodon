@@ -172,6 +172,17 @@ class Status < ApplicationRecord
     private_visibility? || direct_visibility?
   end
 
+  def for_list?
+    !visibility.match(/list-(\d)+/).nil?
+  end
+
+  def list_id
+    return if !for_list?
+
+    list_id_data = visibility.match(/list-(\d)+/)
+    list_id_data[1]&.to_s
+  end
+
   def with_media?
     media_attachments.any?
   end
