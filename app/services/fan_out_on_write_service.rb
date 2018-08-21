@@ -4,7 +4,7 @@ class FanOutOnWriteService < BaseService
   # Push a status into home and mentions feeds
   # @param [Status] status
   def call(status)
-    raise Mastodon::RaceConditionError if status.visibility.nil? || !status.account.lists.find_by(id: status.visibility)
+    raise Mastodon::RaceConditionError if status.visibility.nil?
 
     deliver_to_self(status) if status.account.local?
 
@@ -13,6 +13,8 @@ class FanOutOnWriteService < BaseService
     if status.direct_visibility?
       deliver_to_mentioned_followers(status)
       deliver_to_direct_timelines(status)
+    elsif status.for_list?
+      deliver_to_users_in_list(status)
     else
       deliver_to_followers(status)
       deliver_to_lists(status)
@@ -58,7 +60,8 @@ class FanOutOnWriteService < BaseService
   def deliver_to_users_in_list(status)
     Rails.logger.debug "Delivering status #{status.id} to users in lists"
 
-    list = status.account.lists.find_by(id: status.visibility)
+    list = status.account.lists.find_by(id: status.list_id)
+    raise Mastodon::RaceConditionError if list.nil?
 
     list.accounts.where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |accounts|
       accounts.each do |account|
