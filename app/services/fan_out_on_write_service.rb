@@ -4,7 +4,7 @@ class FanOutOnWriteService < BaseService
   # Push a status into home and mentions feeds
   # @param [Status] status
   def call(status)
-    raise Mastodon::RaceConditionError if status.visibility.nil?
+    raise Mastodon::RaceConditionError if status.visibility.nil? || !status.account.lists.find_by(id: status.visibility)
 
     deliver_to_self(status) if status.account.local?
 
@@ -60,9 +60,10 @@ class FanOutOnWriteService < BaseService
 
     list = status.account.lists.find_by(id: status.visibility)
 
-    list.accounts.where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |users|
-      FeedInsertWorker.push_bulk(users) do |user|
-        [status.id, user.id, :home]
+    list.accounts.where('users.current_sign_in_at > ?', 14.days.ago).select(:id).reorder(nil).find_in_batches do |accounts|
+      accounts.each do |account|
+        next if !account.local? || !account.following?(status.account) || FeedManager.instance.filter?(:home, status, account.id)
+        FeedManager.instance.push_to_home(account, status)
       end
     end
   end
