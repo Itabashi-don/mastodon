@@ -37,7 +37,7 @@ class Status < ApplicationRecord
 
   update_index('statuses#status', :proper) if Chewy.enabled?
 
-  enum visibility: [:public, :unlisted, :private, :direct], _suffix: :visibility
+  enum visibility: [:public, :unlisted, :private, :direct, :list], _suffix: :visibility
 
   belongs_to :application, class_name: 'Doorkeeper::Application', optional: true
 
@@ -153,17 +153,6 @@ class Status < ApplicationRecord
 
   def hidden?
     private_visibility? || direct_visibility?
-  end
-
-  def for_list?
-    !visibility.match(/list-(\d)+/).nil?
-  end
-
-  def list_id
-    return if !for_list?
-
-    list_id_data = visibility.match(/list-(\d)+/)
-    list_id_data[1]&.to_s
   end
 
   def with_media?
