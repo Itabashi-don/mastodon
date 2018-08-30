@@ -52,6 +52,7 @@ const initialState = ImmutableMap({
   preselectDate: null,
   in_reply_to: null,
   quote_from: null,
+  quote_from_url: null,
   is_composing: false,
   is_submitting: false,
   is_uploading: false,
@@ -84,6 +85,7 @@ function clearAll(state) {
     map.set('is_submitting', false);
     map.set('in_reply_to', null);
     map.set('quote_from', null);
+    map.set('quote_from_url', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
@@ -227,6 +229,7 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.set('in_reply_to', action.status.get('id'));
       map.set('quote_from', null);
+      map.set('quote_from_url', null);
       map.set('text', statusToTextMentions(state, action.status));
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('focusDate', new Date());
@@ -245,7 +248,8 @@ export default function compose(state = initialState, action) {
   case COMPOSE_QUOTE:
     return state.withMutations(map => {
       map.set('in_reply_to', null);
-      map.set('quote_from', action.status.get('url'));
+      map.set('quote_from', action.status.get('id'));
+      map.set('quote_from_url', action.status.get('url'));
       map.set('text', '');
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('focusDate', new Date());
@@ -258,6 +262,7 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.set('in_reply_to', null);
       map.set('quote_from', null);
+      map.set('quote_from_url', null);
       map.set('text', '');
       map.set('spoiler', false);
       map.set('spoiler_text', '');

@@ -39,10 +39,6 @@ export default class DetailedStatus extends ImmutablePureComponent {
     this.props.onOpenVideo(media, startTime);
   }
 
-  handleOpenQuote = (quoteUrl, router) => {
-    this.props.onOpenQuote(quoteUrl, router);
-  }
-
   handleExpandedToggle = () => {
     this.props.onToggleHidden(this.props.status);
   }
@@ -115,7 +111,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
           <DisplayName account={status.get('account')} />
         </a>
 
-        <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} onOpenQuote={this.handleOpenQuote} />
+        <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} onOpenQuote={this.props.onOpenQuote} />
 
         {media}
 

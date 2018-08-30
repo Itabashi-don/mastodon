@@ -11,8 +11,8 @@ export function fetchQuote(quoteUrl, router) {
     api(getState).get('/api/v1/search', {
       params: { q: quoteUrl },
     }).then(response => {
-      if (response.statuses[0]) {
-        const quoteId = response.statuses[0].id;
+      if (response.data.statuses[0]) {
+        const quoteId = response.data.statuses[0].id;
         dispatch(fetchQuoteSuccess(quoteId));
 
         if (!getState().getIn(['compose', 'mounted'])) {
