@@ -132,18 +132,18 @@ export function submitCompose() {
   return function (dispatch, getState) {
     let status = getState().getIn(['compose', 'text'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
-    const quoteId = getState().getIn(['compose', 'quote_from'], null);
+    const quoteUrl = getState().getIn(['compose', 'quote_from'], null);
 
     if ((!status || !status.length) && media.size === 0) {
       return;
     }
 
-    if (quoteId) {
+    if (quoteUrl) {
       status = [
         status,
-        "~~~~~~~~~~",
-        `[${quoteId}][${getState().getIn(['compose', 'quote_from_uri'], null)}]`
-      ].join("\n");
+        '~~~~~~~~~~',
+        `[${quoteUrl}]`,
+      ].join('\n');
     }
 
     dispatch(submitComposeRequest());
