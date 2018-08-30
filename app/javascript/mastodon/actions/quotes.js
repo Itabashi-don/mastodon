@@ -4,46 +4,44 @@ export const QUOTE_FETCH_REQUEST = 'QUOTE_FETCH_REQUEST';
 export const QUOTE_FETCH_SUCCESS = 'QUOTE_FETCH_SUCCESS';
 export const QUOTE_FETCH_FAIL    = 'QUOTE_FETCH_FAIL';
 
-export function fetchQuote(id) {
+export function fetchQuote(quoteUrl, router) {
   return (dispatch, getState) => {
-    dispatch(fetchQuoteRequest(id));
+    dispatch(fetchQuoteRequest());
 
-    api(getState).get(`/api/v1/statuses/${id}/context`).then(response => {
-      dispatch(importFetchedStatuses(response.data.ancestors.concat(response.data.descendants)));
-      dispatch(fetchContextSuccess(id, response.data.ancestors, response.data.descendants));
+    api(getState).get('/api/v1/search', {
+      params: { q: quoteUrl },
+    }).then(response => {
+      if (response.statuses[0]) {
+        const quoteId = response.statuses[0].id;
+        dispatch(fetchQuoteSuccess(quoteId));
 
-    }).catch(error => {
-      if (error.response && error.response.status === 404) {
-        dispatch(deleteFromTimelines(id));
+        if (!getState().getIn(['compose', 'mounted'])) {
+          router.push(`/statuses/${quoteId}`);
+        }
       }
-
-      dispatch(fetchContextFail(id, error));
+    }).catch(error => {
+      dispatch(fetchQuoteFail(quoteUrl, error));
     });
   };
 };
 
-export function fetchQuoteRequest(id) {
+export function fetchQuoteRequest() {
   return {
     type: QUOTE_FETCH_REQUEST,
-    id,
   };
 };
 
-export function fetchQuoteSuccess(id, ancestors, descendants) {
+export function fetchQuoteSuccess(quoteId) {
   return {
     type: QUOTE_FETCH_SUCCESS,
-    id,
-    ancestors,
-    descendants,
-    statuses: ancestors.concat(descendants),
+    quoteId,
   };
 };
 
-export function fetchQuoteFail(id, error) {
+export function fetchQuoteFail(quoteUrl, error) {
   return {
     type: QUOTE_FETCH_FAIL,
-    id,
+    quoteUrl,
     error,
-    skipAlert: true,
   };
 };
