@@ -33,6 +33,7 @@ import {
 } from '../../actions/statuses';
 import { initMuteModal } from '../../actions/mutes';
 import { initReport } from '../../actions/reports';
+import { fetchQuote } from '../../actions/quotes';
 import { makeGetStatus } from '../../selectors';
 import { ScrollContainer } from 'react-router-scroll-4';
 import ColumnBackButton from '../../components/column_back_button';
@@ -214,6 +215,10 @@ class Status extends ImmutablePureComponent {
 
   handleMentionClick = (account, router) => {
     this.props.dispatch(mentionCompose(account, router));
+  }
+
+  handleOpenQuote = (quoteUrl, router) => {
+    this.props.dispatch(fetchQuote(quoteUrl, router));
   }
 
   handleOpenMedia = (media, index) => {
@@ -440,6 +445,7 @@ class Status extends ImmutablePureComponent {
               <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false, !status.get('hidden'))}>
                 <DetailedStatus
                   status={status}
+                  onOpenQuote={this.handleOpenQuote}
                   onOpenVideo={this.handleOpenVideo}
                   onOpenMedia={this.handleOpenMedia}
                   onToggleHidden={this.handleToggleHidden}
