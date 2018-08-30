@@ -19,6 +19,7 @@ export default class StatusContent extends React.PureComponent {
     expanded: PropTypes.bool,
     onExpandedToggle: PropTypes.func,
     onClick: PropTypes.func,
+    onOpenQuote: PropTypes.func,
     collapsable: PropTypes.bool,
   };
 
@@ -35,8 +36,8 @@ export default class StatusContent extends React.PureComponent {
     }
 
     const links = node.querySelectorAll('a');
-    const QuoteUrlFormat = /(?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\/users\/[\w-_]+(\/statuses\/\w+)/;
-    const quote = node.innerText.match(new RegExp(`\\[(\\w+)\\]\\[${QuoteUrlFormat.source}\\]`));
+    const QuoteUrlFormat = /(?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\/@[\w-_]+\/\w+/;
+    const quote = node.innerText.match(new RegExp(`\\[${QuoteUrlFormat.source}\\]`));
 
     for (var i = 0; i < links.length; ++i) {
       let link = links[i];
@@ -46,7 +47,7 @@ export default class StatusContent extends React.PureComponent {
       link.classList.add('status-link');
 
       if (quote && link.href.match(QuoteUrlFormat)) {
-        link.addEventListener('click', this.onQuoteClick.bind(this, quote[1]), false);
+        link.addEventListener('click', this.onQuoteClick.bind(this, link.href), false);
       }
 
       let mention = this.props.status.get('mentions').find(item => link.href === item.get('url'));
@@ -99,12 +100,10 @@ export default class StatusContent extends React.PureComponent {
     }
   }
 
-  onQuoteClick = (statusId, e) => {
-    let statusUrl = `/statuses/${statusId}`;
-
+  onQuoteClick = (quoteUrl, e) => {
     if (this.context.router && e.button === 0) {
       e.preventDefault();
-      this.context.router.history.push(statusUrl);
+      this.props.onOpenQuote(quoteUrl, this.context.router.history);
     }
   }
 
