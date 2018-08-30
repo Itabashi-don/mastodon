@@ -33,7 +33,7 @@ import {
 } from '../../actions/statuses';
 import { initMuteModal } from '../../actions/mutes';
 import { initReport } from '../../actions/reports';
-import { fetchQuote } from '../actions/quotes';
+import { fetchQuote } from '../../actions/quotes';
 import { makeGetStatus } from '../../selectors';
 import { ScrollContainer } from 'react-router-scroll-4';
 import ColumnBackButton from '../../components/column_back_button';
