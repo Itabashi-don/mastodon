@@ -15,9 +15,7 @@ export function fetchQuote(quoteUrl, router) {
         const quoteId = response.data.statuses[0].id;
         dispatch(fetchQuoteSuccess(quoteId));
 
-        if (!getState().getIn(['compose', 'mounted'])) {
-          router.push(`/statuses/${quoteId}`);
-        }
+        router.push(`/statuses/${quoteId}`);
       }
     }).catch(error => {
       dispatch(fetchQuoteFail(quoteUrl, error));
