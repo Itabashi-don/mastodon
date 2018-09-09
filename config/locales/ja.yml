@@ -866,6 +866,7 @@ ja:
   themes:
     contrast: ハイコントラスト
     default: Mastodon
+    gplus-theme: Google+テーマ
     mastodon-light: Mastodon (ライト)
   time:
     formats:

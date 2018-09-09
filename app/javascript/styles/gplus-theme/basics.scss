@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+@import '_variables.scss';
+@import '_mixins.scss';
+
+
+
+body {
+	color: $primary-text-color;
+	background: $base-color;
+
+	.ui {
+		background: $base-color;
+	}
+}
+
+.focusable {
+	&:focus {
+		background: inherit;
+
+		.status {
+			@include status-focus-shadow;
+
+			&.status-direct {
+				background: darken($status-color, 5%);
+			}
+		}
+
+		.detailed-status {
+			background: $status-color;
+		}
+		
+		.detailed-status__action-bar {
+			background: $status-actionbar-color;
+		}
+	}
+}
