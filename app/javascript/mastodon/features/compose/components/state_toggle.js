@@ -22,7 +22,7 @@ export default class StateToggle extends React.PureComponent {
 
     return (
       <div className='state-toggle'>
-        <Toggle id={id} checked={checked} onChange={this.onChange} />
+        <Toggle id={id} checked={checked || false} onChange={this.onChange} />
         <label htmlFor={id} className='state-toggle__label'>{label}</label>
       </div>
     );
