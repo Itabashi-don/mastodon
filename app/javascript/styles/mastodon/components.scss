@@ -1058,6 +1058,11 @@
   }
 }
 
+.quote-indicator__footer {
+  margin-top: 5px;
+  overflow: hidden;
+}
+
 .domain {
   padding: 10px;
   border-bottom: 1px solid lighten($ui-base-color, 8%);
@@ -3030,6 +3035,18 @@ a.status-card {
 
 .setting-meta__label {
   float: right;
+}
+
+.state-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.state-toggle__label {
+  @extend .setting-toggle__label;
+
+  color: $inverted-text-color;
+  margin-bottom: 0;
 }
 
 .empty-column-indicator,
