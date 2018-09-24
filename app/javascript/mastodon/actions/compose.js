@@ -46,6 +46,9 @@ export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
 
 export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT';
+export const COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE = 'COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE';
+export const COMPOSE_QUOTEE_INSERT = 'COMPOSE_QUOTEE_INSERT';
+export const COMPOSE_QUOTEE_CLEAR = 'COMPOSE_QUOTEE_CLEAR';
 
 export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST';
 export const COMPOSE_UPLOAD_CHANGE_SUCCESS     = 'COMPOSE_UPLOAD_UPDATE_SUCCESS';
@@ -83,6 +86,8 @@ export function quoteCompose(status, router) {
       type: COMPOSE_QUOTE,
       status: status,
     });
+
+    dispatch(insertQuotee(status));
 
     if (!getState().getIn(['compose', 'mounted'])) {
       router.push('/statuses/new');
@@ -134,12 +139,14 @@ export function submitCompose(routerHistory) {
     const media  = getState().getIn(['compose', 'media_attachments']);
     const quoteUrl = getState().getIn(['compose', 'quote_from_url'], null);
 
+
     if ((!status || !status.length) && media.size === 0) {
       return;
     }
 
     if (quoteUrl) {
       status = [
+        getState().getIn(['compose', 'does_notify_to_quotees'], false) ? getState().getIn(['compose', 'text_quotees']) : '',
         status,
         '~~~~~~~~~~',
         `[${quoteUrl}]`,
@@ -484,6 +491,26 @@ export function insertEmojiCompose(position, emoji, needsSpace) {
     position,
     emoji,
     needsSpace,
+  };
+};
+
+export function changeDoesNotifyToQuotees(value) {
+  return {
+    type: COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE,
+    value,
+  };
+}
+
+export function insertQuotee(status) {
+  return {
+    type: COMPOSE_QUOTEE_INSERT,
+    status,
+  };
+};
+
+export function clearQuotee() {
+  return {
+    type: COMPOSE_QUOTEE_CLEAR,
   };
 };
 
