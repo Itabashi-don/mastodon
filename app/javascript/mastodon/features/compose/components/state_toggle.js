@@ -9,11 +9,11 @@ export default class StateToggle extends React.PureComponent {
     stateName: PropTypes.string.isRequired,
     label: PropTypes.node.isRequired,
     checked: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
   };
 
   onChange = ({ target }) => {
-    this.props.onChange(target.checked);
+    this.props.onChange([ this.props.prefix, this.props.stateName ].join('-'), target.checked);
   }
 
   render () {

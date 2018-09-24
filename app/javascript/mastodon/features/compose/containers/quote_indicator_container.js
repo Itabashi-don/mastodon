@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { cancelQuoteCompose } from '../../../actions/compose';
+import { cancelQuoteCompose, changeDoesNotifyToQuotees } from '../../../actions/compose';
 import { makeGetStatus } from '../../../selectors';
 import QuoteIndicator from '../components/quote_indicator';
 
@@ -17,6 +17,10 @@ const mapDispatchToProps = dispatch => ({
 
   onCancel () {
     dispatch(cancelQuoteCompose());
+  },
+
+  onChangeDoesNotifyToQuoteesState (value) {
+    dispatch(changeDoesNotifyToQuotees(value));
   },
 
 });

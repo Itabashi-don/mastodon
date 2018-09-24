@@ -24,6 +24,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map,
     onCancel: PropTypes.func.isRequired,
+    onChangeDoesNotifyToQuoteesState: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   };
 
@@ -35,6 +36,13 @@ export default class QuoteIndicator extends ImmutablePureComponent {
     if (e.button === 0) {
       e.preventDefault();
       this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`);
+    }
+  }
+
+  handleChangeState = (stateName, checked) => {
+    switch (stateName) {
+    case 'quote_indicator-does_notify_to_quotees':
+      return this.props.onChangeDoesNotifyToQuoteesState(checked);
     }
   }
 
@@ -64,7 +72,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
         <div className='quote-indicator__content' style={style} dangerouslySetInnerHTML={content} />
 
         <div className='quote-indicator__footer'>
-          <StateToggle prefix='quote_indicator' stateName='does_notify' label={intl.formatMessage(messages.states_does_notify)} />
+          <StateToggle prefix='quote_indicator' stateName='does_notify_to_quotees' label={intl.formatMessage(messages.states_does_notify)} onChange={this.handleChangeState} />
         </div>
       </div>
     );
