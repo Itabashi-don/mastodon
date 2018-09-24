@@ -72,7 +72,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
         <div className='quote-indicator__content' style={style} dangerouslySetInnerHTML={content} />
 
         <div className='quote-indicator__footer'>
-          <StateToggle prefix='quote_indicator' stateName='does_notify_to_quotees' label={<FormattedMessage id='quote_indicator.states.does_notify' defaultMessage='Notify to original tooter' />} />
+          <StateToggle prefix='quote_indicator' stateName='does_notify_to_quotees' label={<FormattedMessage id='quote_indicator.states.does_notify' defaultMessage='Notify to original tooter' />} onChange={this.handleChangeState} />
         </div>
       </div>
     );
