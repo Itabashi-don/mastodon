@@ -854,6 +854,10 @@
       {
         "defaultMessage": "Cancel",
         "id": "quote_indicator.cancel"
+      },
+      {
+        "defaultMessage": "Notify to original tooter",
+        "id": "quote_indicator.states.does_notify"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/components/quote_indicator.json"
