@@ -7,9 +7,11 @@ import DisplayName from '../../../components/display_name';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { isRtl } from '../../../rtl';
+import { StateToggle } from './state_toggle';
 
 const messages = defineMessages({
   cancel: { id: 'quote_indicator.cancel', defaultMessage: 'Cancel' },
+  states_does_notify: { id: 'quote_indicator.states.does_notify', defaultMessage: 'Notify to original tooter' },
 });
 
 @injectIntl
@@ -60,6 +62,10 @@ export default class QuoteIndicator extends ImmutablePureComponent {
         </div>
 
         <div className='quote-indicator__content' style={style} dangerouslySetInnerHTML={content} />
+
+        <div className='quote-indicator__footer'>
+          <StateToggle prefix='quote_indicator' stateName='does_notify' label={intl.formatMessage(messages.states_does_notify)} />
+        </div>
       </div>
     );
   }
