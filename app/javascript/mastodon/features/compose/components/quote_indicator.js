@@ -7,7 +7,7 @@ import DisplayName from '../../../components/display_name';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { isRtl } from '../../../rtl';
-import { StateToggle } from './state_toggle';
+import StateToggle from './state_toggle';
 
 const messages = defineMessages({
   cancel: { id: 'quote_indicator.cancel', defaultMessage: 'Cancel' },
@@ -22,6 +22,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map,
+    doesNotifyToQuotees: PropTypes.bool.isRequired,
     onCancel: PropTypes.func.isRequired,
     onChangeDoesNotifyToQuoteesState: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
@@ -47,7 +48,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
   }
 
   render () {
-    const { status, intl } = this.props;
+    const { status, doesNotifyToQuotees, intl } = this.props;
 
     if (!status) {
       return null;
@@ -72,7 +73,7 @@ export default class QuoteIndicator extends ImmutablePureComponent {
         <div className='quote-indicator__content' style={style} dangerouslySetInnerHTML={content} />
 
         <div className='quote-indicator__footer'>
-          <StateToggle prefix='quote_indicator' stateName='does_notify_to_quotees' label={<FormattedMessage id='quote_indicator.states.does_notify' defaultMessage='Notify to original tooter' />} onChange={this.handleChangeState} />
+          <StateToggle checked={doesNotifyToQuotees} prefix='quote_indicator' stateName='does_notify_to_quotees' label={<FormattedMessage id='quote_indicator.states.does_notify' defaultMessage='Notify to original tooter' />} onChange={this.handleChangeState} />
         </div>
       </div>
     );

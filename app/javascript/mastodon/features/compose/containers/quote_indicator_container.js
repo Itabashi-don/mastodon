@@ -8,6 +8,7 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = state => ({
     status: getStatus(state, { id: state.getIn(['compose', 'quote_from']) }),
+    doesNotifyToQuotees: state.getIn(['compose', 'does_notify_to_quotees'], false),
   });
 
   return mapStateToProps;
