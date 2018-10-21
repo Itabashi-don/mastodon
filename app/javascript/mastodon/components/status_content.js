@@ -41,7 +41,7 @@ export default class StatusContent extends React.PureComponent {
       }
       link.classList.add('status-link');
 
-      if (link.previousSibling.textContent === '[' && link.href.match(QuoteUrlFormat) && link.nextSibling.textContent === ']') {
+      if ((link.previousSibling && link.previousSibling.textContent === '[') && link.href.match(QuoteUrlFormat) && (link.nextSibling && link.nextSibling.textContent === ']')) {
         link.addEventListener('click', this.onQuoteClick.bind(this, link.href), false);
         continue;
       }
