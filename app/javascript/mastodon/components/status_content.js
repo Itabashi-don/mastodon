@@ -37,7 +37,6 @@ export default class StatusContent extends React.PureComponent {
 
     const links = node.querySelectorAll('a');
     const QuoteUrlFormat = /(?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\/@[\w-_]+\/\w+/;
-    const quote = node.innerText.match(new RegExp(`\\[${QuoteUrlFormat.source}\\]`));
 
     for (var i = 0; i < links.length; ++i) {
       let link = links[i];
@@ -46,8 +45,9 @@ export default class StatusContent extends React.PureComponent {
       }
       link.classList.add('status-link');
 
-      if (quote && link.href.match(QuoteUrlFormat)) {
+      if (link.previousSibling.textContent === '[' && link.href.match(QuoteUrlFormat) && link.nextSibling.textContent === ']') {
         link.addEventListener('click', this.onQuoteClick.bind(this, link.href), false);
+        continue;
       }
 
       let mention = this.props.status.get('mentions').find(item => link.href === item.get('url'));
