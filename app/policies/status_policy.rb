@@ -14,6 +14,8 @@ class StatusPolicy < ApplicationPolicy
   def show?
     if requires_mention?
       owned? || mention_exists?
+    elsif unleakable?
+      owned? || current_account&.followed_by?(author) || mention_exists?
     elsif private?
       owned? || following_author? || mention_exists?
     else
@@ -22,7 +24,7 @@ class StatusPolicy < ApplicationPolicy
   end
 
   def reblog?
-    !requires_mention? && (!private? || owned?) && show? && !blocking_author?
+    !requires_mention? && !unleakable? && (!private? || owned?) && show? && !blocking_author?
   end
 
   def favourite?
@@ -51,6 +53,10 @@ class StatusPolicy < ApplicationPolicy
 
   def private?
     record.private_visibility?
+  end
+
+  def unleakable?
+    record.unleakable_visibility?
   end
 
   def mention_exists?
