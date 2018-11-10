@@ -13,7 +13,8 @@ class FanOutOnWriteService < BaseService
     elsif status.limited_visibility?
       deliver_to_mentioned_followers(status)
     elsif status.unleakable_visibility?
-      deliver_to_users_followed_by_author(status);
+      deliver_to_self(status) if status.account.local?
+      deliver_to_users_followed_by_author(status)
     else
       deliver_to_self(status) if status.account.local?
       deliver_to_followers(status)
