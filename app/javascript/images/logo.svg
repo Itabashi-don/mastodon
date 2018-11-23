@@ -3,14 +3,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Itabashi-don_logo" viewBox="0 0 216.4144 232.00976">
   <defs>
     <style type="text/css">
-      #Tokyo *:not(#Mastodon) {
+      #Tokyo *:not(#Mastodon):not(#Itabashi) {
         fill: #3088d4;
         fill-opacity: 1;
         stroke-width: 0.50507629;
       }
 
       #Tokyo #Itabashi {
-        fill: #ff9800;
+        fill: #ff9800 !important;
       }
     </style>
   </defs>
