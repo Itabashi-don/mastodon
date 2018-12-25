@@ -49,6 +49,8 @@ export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST'
 export const COMPOSE_UPLOAD_CHANGE_SUCCESS     = 'COMPOSE_UPLOAD_UPDATE_SUCCESS';
 export const COMPOSE_UPLOAD_CHANGE_FAIL        = 'COMPOSE_UPLOAD_UPDATE_FAIL';
 
+export const COMPOSE_SWITCH_ACCOUNTS = 'COMPOSE_SWITCH_ACCOUNTS';
+
 export function changeCompose(text) {
   return {
     type: COMPOSE_CHANGE,
@@ -462,4 +464,13 @@ export function changeComposing(value) {
     type: COMPOSE_COMPOSING_CHANGE,
     value,
   };
+}
+
+export function switchAccounts(cookies, localStorage) {
+  const accounts = JSON.parse(localStorage.getItem('_mastodon_accounts') || '[]');
+  const sessionId = (cookie => (cookie && cookie.split('=') || ''))(cookies.find(cookie => cookie.match(/^_session_id=/)));
+
+  localStorage.setItem('_mastodon_accounts', JSON.stringify([...accounts, sessionId]));
+
+  return { type: COMPOSE_SWITCH_ACCOUNTS };
 }

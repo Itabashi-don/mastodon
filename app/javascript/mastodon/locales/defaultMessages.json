@@ -1051,6 +1051,10 @@
       {
         "defaultMessage": "Compose new toot",
         "id": "navigation_bar.compose"
+      },
+      {
+        "defaultMessage": "Switch accounts",
+        "id": "navigation_bar.multi_login"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/index.json"

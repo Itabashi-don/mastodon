@@ -201,6 +201,7 @@
   "navigation_bar.keyboard_shortcuts": "Hotkeys",
   "navigation_bar.lists": "Lists",
   "navigation_bar.logout": "Logout",
+  "navigation_bar.multi_login": "Switch accounts",
   "navigation_bar.mutes": "Muted users",
   "navigation_bar.personal": "Personal",
   "navigation_bar.pins": "Pinned toots",

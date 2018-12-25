@@ -11,7 +11,7 @@ import SearchContainer from './containers/search_container';
 import Motion from '../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 import SearchResultsContainer from './containers/search_results_container';
-import { changeComposing } from '../../actions/compose';
+import { changeComposing, switchAccounts } from '../../actions/compose';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
 import { mascot } from '../../initial_state';
 
@@ -24,6 +24,7 @@ const messages = defineMessages({
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
   compose: { id: 'navigation_bar.compose', defaultMessage: 'Compose new toot' },
+  multi_login: { id: 'navigation_bar.multi_login', defaultMessage: 'Switch accounts' },
 });
 
 const mapStateToProps = (state, ownProps) => ({
@@ -68,6 +69,10 @@ class Compose extends React.PureComponent {
     this.props.dispatch(changeComposing(false));
   }
 
+  onSwitchAccounts = () => {
+    this.props.dispatch(switchAccounts(document.cookie.split(';'), localStorage));
+  }
+
   render () {
     const { multiColumn, showSearch, isSearchPage, intl } = this.props;
 
@@ -91,6 +96,7 @@ class Compose extends React.PureComponent {
             <Link to='/timelines/public' className='drawer__tab' title={intl.formatMessage(messages.public)} aria-label={intl.formatMessage(messages.public)}><i role='img' className='fa fa-fw fa-globe' /></Link>
           )}
           <a href='/settings/preferences' className='drawer__tab' title={intl.formatMessage(messages.preferences)} aria-label={intl.formatMessage(messages.preferences)}><i role='img' className='fa fa-fw fa-cog' /></a>
+          <a className='drawer__tab' title={intl.formatMessage(messages.multi_login)} aria-label={intl.formatMessage(messages.multi_login)} onClick={this.onSwitchAccounts}><i role='img' className='fa fa-fw fa-sign-in' /></a>
           <a href='/auth/sign_out' className='drawer__tab' data-method='delete' title={intl.formatMessage(messages.logout)} aria-label={intl.formatMessage(messages.logout)}><i role='img' className='fa fa-fw fa-sign-out' /></a>
         </nav>
       );
