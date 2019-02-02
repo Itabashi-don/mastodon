@@ -1007,6 +1007,7 @@ en:
   themes:
     contrast: Mastodon (High contrast)
     default: Mastodon (Dark)
+    gplus-theme-for-mastodon: Google+
     mastodon-light: Mastodon (Light)
   time:
     formats:
