@@ -1706,6 +1706,10 @@
       {
         "defaultMessage": "Profile directory",
         "id": "getting_started.directory"
+      },
+      {
+        "defaultMessage": "Announcements from Admin",
+        "id": "getting_started.announcements"
       }
     ],
     "path": "app/javascript/mastodon/features/getting_started/index.json"
