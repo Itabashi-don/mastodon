@@ -993,6 +993,19 @@
     "descriptors": [
       {
         "defaultMessage": "Cancel",
+        "id": "quote_indicator.cancel"
+      },
+      {
+        "defaultMessage": "Notify to original tooter",
+        "id": "quote_indicator.states.does_notify"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/compose/components/quote_indicator.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Cancel",
         "id": "reply_indicator.cancel"
       }
     ],
@@ -2020,6 +2033,10 @@
       {
         "defaultMessage": "This post cannot be boosted",
         "id": "status.cannot_reblog"
+      },
+      {
+        "defaultMessage": "Quote",
+        "id": "status.quote"
       },
       {
         "defaultMessage": "Favourite",

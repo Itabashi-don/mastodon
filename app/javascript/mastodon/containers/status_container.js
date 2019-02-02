@@ -4,6 +4,7 @@ import Status from '../components/status';
 import { makeGetStatus } from '../selectors';
 import {
   replyCompose,
+  quoteCompose,
   mentionCompose,
   directCompose,
 } from '../actions/compose';
@@ -29,6 +30,7 @@ import { openModal } from '../actions/modal';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { boostModal, deleteModal } from '../initial_state';
 import { showAlertForError } from '../actions/alerts';
+import { fetchQuote } from '../actions/quotes';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -84,6 +86,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
+  onQuote (status, router) {
+    dispatch(quoteCompose(status, router));
+  },
+
   onFavourite (status) {
     if (status.get('favourited')) {
       dispatch(unfavourite(status));
@@ -125,6 +131,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onMention (account, router) {
     dispatch(mentionCompose(account, router));
+  },
+
+  onOpenQuote (quoteUrl, router) {
+    dispatch(fetchQuote(quoteUrl, router));
   },
 
   onOpenMedia (media, index) {

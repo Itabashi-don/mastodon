@@ -20,6 +20,7 @@ export default class StatusContent extends React.PureComponent {
     expanded: PropTypes.bool,
     onExpandedToggle: PropTypes.func,
     onClick: PropTypes.func,
+    onOpenQuote: PropTypes.func,
     collapsable: PropTypes.bool,
   };
 
@@ -43,6 +44,11 @@ export default class StatusContent extends React.PureComponent {
         continue;
       }
       link.classList.add('status-link');
+
+      if ((link.previousSibling && link.previousSibling.textContent === '[') && (link.nextSibling && link.nextSibling.textContent === ']')) {
+        link.addEventListener('click', this.onQuoteClick.bind(this, link.href), false);
+        continue;
+      }
 
       let mention = this.props.status.get('mentions').find(item => link.href === item.get('url'));
 
@@ -91,6 +97,13 @@ export default class StatusContent extends React.PureComponent {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/timelines/tag/${hashtag}`);
+    }
+  }
+
+  onQuoteClick = (quoteUrl, e) => {
+    if (this.context.router && e.button === 0) {
+      e.preventDefault();
+      this.props.onOpenQuote(quoteUrl, this.context.router.history);
     }
   }
 
