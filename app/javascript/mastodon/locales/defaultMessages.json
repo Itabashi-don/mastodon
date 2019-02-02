@@ -1358,6 +1358,10 @@
         "id": "getting_started.directory"
       },
       {
+        "defaultMessage": "Announcements from Admin",
+        "id": "getting_started.announcements"
+      },
+      {
         "defaultMessage": "Invite people",
         "id": "getting_started.invite"
       },

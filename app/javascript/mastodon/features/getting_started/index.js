@@ -34,6 +34,7 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
+  announcements: { id: 'getting_started.announcements', defaultMessage: 'Announcements from Admin' },
 });
 
 const mapStateToProps = state => ({
@@ -101,6 +102,8 @@ class GettingStarted extends ImmutablePureComponent {
         <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />
       );
     }
+
+    navItems.push(<ColumnLink key={i++} icon='info-circle' text={intl.formatMessage(messages.announcements)} to='/timelines/tag/板橋丼インフォ' />);
 
     navItems.push(
       <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
