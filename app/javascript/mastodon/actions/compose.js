@@ -19,6 +19,8 @@ export const COMPOSE_SUBMIT_SUCCESS  = 'COMPOSE_SUBMIT_SUCCESS';
 export const COMPOSE_SUBMIT_FAIL     = 'COMPOSE_SUBMIT_FAIL';
 export const COMPOSE_REPLY           = 'COMPOSE_REPLY';
 export const COMPOSE_REPLY_CANCEL    = 'COMPOSE_REPLY_CANCEL';
+export const COMPOSE_QUOTE           = 'COMPOSE_QUOTE';
+export const COMPOSE_QUOTE_CANCEL    = 'COMPOSE_QUOTE_CANCEL';
 export const COMPOSE_DIRECT          = 'COMPOSE_DIRECT';
 export const COMPOSE_MENTION         = 'COMPOSE_MENTION';
 export const COMPOSE_RESET           = 'COMPOSE_RESET';
@@ -46,6 +48,9 @@ export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
 
 export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT';
+export const COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE = 'COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE';
+export const COMPOSE_QUOTEE_INSERT = 'COMPOSE_QUOTEE_INSERT';
+export const COMPOSE_QUOTEE_CLEAR = 'COMPOSE_QUOTEE_CLEAR';
 
 export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST';
 export const COMPOSE_UPLOAD_CHANGE_SUCCESS     = 'COMPOSE_UPLOAD_UPDATE_SUCCESS';
@@ -95,6 +100,27 @@ export function cancelReplyCompose() {
   };
 };
 
+export function quoteCompose(status, router) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: COMPOSE_QUOTE,
+      status: status,
+    });
+
+    dispatch(insertQuotee(status));
+
+    if (!getState().getIn(['compose', 'mounted'])) {
+      router.push('/statuses/new');
+    }
+  };
+};
+
+export function cancelQuoteCompose() {
+  return {
+    type: COMPOSE_QUOTE_CANCEL,
+  };
+};
+
 export function resetCompose() {
   return {
     type: COMPOSE_RESET,
@@ -125,11 +151,21 @@ export function directCompose(account, routerHistory) {
 
 export function submitCompose(routerHistory) {
   return function (dispatch, getState) {
-    const status = getState().getIn(['compose', 'text'], '');
+    let status = getState().getIn(['compose', 'text'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
+    const quoteUrl = getState().getIn(['compose', 'quote_from_url'], null);
 
     if ((!status || !status.length) && media.size === 0) {
       return;
+    }
+
+    if (quoteUrl) {
+      status = [
+        getState().getIn(['compose', 'does_notify_to_quotees'], false) ? getState().getIn(['compose', 'quotees']) : '',
+        status,
+        '~~~~~~~~~~',
+        `[${quoteUrl}]`,
+      ].join('\n');
     }
 
     dispatch(submitComposeRequest());
@@ -498,6 +534,26 @@ export function insertEmojiCompose(position, emoji, needsSpace) {
     position,
     emoji,
     needsSpace,
+  };
+};
+
+export function changeDoesNotifyToQuotees(value) {
+  return {
+    type: COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE,
+    value,
+  };
+}
+
+export function insertQuotee(status) {
+  return {
+    type: COMPOSE_QUOTEE_INSERT,
+    status,
+  };
+};
+
+export function clearQuotee() {
+  return {
+    type: COMPOSE_QUOTEE_CLEAR,
   };
 };
 
