@@ -145,11 +145,13 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
     if (status.get('visibility') === 'direct') {
       reblogIcon = 'envelope';
+    } else if (status.get('visibility') === 'unleakable') {
+      reblogIcon = 'low-vision';
     } else if (status.get('visibility') === 'private') {
       reblogIcon = 'lock';
     }
 
-    if (status.get('visibility') === 'private') {
+    if (status.get('visibility') === 'unleakable' || status.get('visibility') === 'private') {
       reblogLink = <Icon id={reblogIcon} />;
     } else if (this.context.router) {
       reblogLink = (
