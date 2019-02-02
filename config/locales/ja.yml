@@ -997,6 +997,7 @@ ja:
   themes:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
+    gplus-theme-for-mastodon: Google+
     mastodon-light: Mastodon (ライト)
   time:
     formats:
