@@ -93,7 +93,6 @@ class GettingStarted extends ImmutablePureComponent {
 
     const navItems = [];
     let i = 1;
-    let height = (multiColumn) ? 0 : 60;
 
     if (multiColumn) {
       navItems.push(
@@ -102,41 +101,28 @@ class GettingStarted extends ImmutablePureComponent {
         <ColumnLink key={i++} icon='globe' text={intl.formatMessage(messages.public_timeline)} to='/timelines/public' />,
       );
 
-      height += 34 + 48*2;
-
       if (profile_directory) {
         navItems.push(
           <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
         );
-
-        height += 48;
       }
-
-      navItems.push(
-        <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
-      );
-
-      height += 34;
     } else if (profile_directory) {
       navItems.push(
+        <ColumnSubheading key={i++} text={intl.formatMessage(messages.discover)} />,
         <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} to='/directory' />,
       );
-
-      height += 48;
     }
 
     navItems.push(
+      <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />,
       <ColumnLink key={i++} icon='envelope' text={intl.formatMessage(messages.direct)} to='/timelines/direct' />,
       <ColumnLink key={i++} icon='bookmark' text={intl.formatMessage(messages.bookmarks)} to='/bookmarks' />,
       <ColumnLink key={i++} icon='star' text={intl.formatMessage(messages.favourites)} to='/favourites' />,
       <ColumnLink key={i++} icon='list-ul' text={intl.formatMessage(messages.lists)} to='/lists' />,
     );
 
-    height += 48*4;
-
     if (myAccount.get('locked') || unreadFollowRequests > 0) {
       navItems.push(<ColumnLink key={i++} icon='user-plus' text={intl.formatMessage(messages.follow_requests)} badge={badgeDisplay(unreadFollowRequests, 40)} to='/follow_requests' />);
-      height += 48;
     }
 
     if (!multiColumn) {
@@ -144,8 +130,6 @@ class GettingStarted extends ImmutablePureComponent {
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.settings_subheading)} />,
         <ColumnLink key={i++} icon='gears' text={intl.formatMessage(messages.preferences)} href='/settings/preferences' />,
       );
-
-      height += 34 + 48;
     }
 
     return (
@@ -160,7 +144,7 @@ class GettingStarted extends ImmutablePureComponent {
         </div>}
 
         <div className='getting-started'>
-          <div className='getting-started__wrapper' style={{ height }}>
+          <div className='getting-started__wrapper'>
             {!multiColumn && <NavigationBar account={myAccount} />}
             {navItems}
           </div>
