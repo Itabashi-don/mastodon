@@ -931,6 +931,7 @@ en:
   themes:
     contrast: High contrast
     default: Mastodon
+    gplus-theme-for-mastodon: Google+
     mastodon-light: Mastodon (light)
   time:
     formats:
