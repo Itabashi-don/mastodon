@@ -131,6 +131,7 @@
   "empty_column.public": "ここにはまだ何もありません！ 公開で何かを投稿したり、他のインスタンスのユーザーをフォローしたりしていっぱいにしましょう",
   "follow_request.authorize": "許可",
   "follow_request.reject": "拒否",
+  "getting_started.announcements": "運営からのお知らせ",
   "getting_started.developers": "開発",
   "getting_started.directory": "ディレクトリ",
   "getting_started.documentation": "ドキュメント",
