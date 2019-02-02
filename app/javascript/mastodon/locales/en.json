@@ -136,6 +136,7 @@
   "empty_column.public": "There is nothing here! Write something publicly, or manually follow users from other servers to fill it up",
   "follow_request.authorize": "Authorize",
   "follow_request.reject": "Reject",
+  "getting_started.announcements": "Announcements from Admin",
   "getting_started.developers": "Developers",
   "getting_started.directory": "Profile directory",
   "getting_started.documentation": "Documentation",
