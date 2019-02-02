@@ -148,7 +148,7 @@ export function directCompose(account, routerHistory) {
   };
 };
 
-export function submitCompose(routerHistory) {
+export function submitCompose(routerHistory, privacy) {
   return function (dispatch, getState) {
     let status = getState().getIn(['compose', 'text'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
@@ -156,6 +156,8 @@ export function submitCompose(routerHistory) {
     if ((!status || !status.length) && media.size === 0) {
       return;
     }
+
+    if (privacy) dispatch(changeComposeVisibility(privacy));
 
     if (getState().getIn(['compose', 'does_notify_to_quotees'], false)) {
       status = [
