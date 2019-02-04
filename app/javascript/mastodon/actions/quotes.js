@@ -1,8 +1,8 @@
 import api from '../api';
 
 export const QUOTE_FETCH_REQUEST =  'QUOTE_FETCH_REQUEST';
-export const QUOTE_FETCH_FOUND =    'QUOTE_FETCH_FOUND';
-export const QUOTE_FETCH_NOTFOUND = 'QUOTE_FETCH_NOTFOUND';
+export const QUOTE_FETCH_FOUND =    'QUOTE_FETCH_SUCCESS';
+export const QUOTE_FETCH_NOTFOUND = 'QUOTE_FETCH_FAIL';
 
 export function fetchQuote(quoteUrl, router) {
   return (dispatch, getState) => {
