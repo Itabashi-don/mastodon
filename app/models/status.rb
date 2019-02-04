@@ -351,7 +351,7 @@ class Status < ApplicationRecord
         # non-followers can see everything that isn't private/direct, but can see stuff they are mentioned in.
         visibility.push(:private) if account.following?(target_account)
         # Local users followed by author can see unleakable toots.
-        visibility.push(:unleakable) if account.followed_by?(target_account)
+        visibility.push(:unleakable) if target_account.following?(account)
 
         scope = left_outer_joins(:reblog)
 
