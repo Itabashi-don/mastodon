@@ -12,3 +12,7 @@
 *.woff                        -text
 *.woff2                       -text
 spec/fixtures/requests/**     -text !eol
+app/javascript/styles/material-dark       symlink=dir
+app/javascript/styles/material-light      symlink=dir
+app/javascript/styles/material-dark.scss  symlink=file
+app/javascript/styles/material-light.scss symlink=file
