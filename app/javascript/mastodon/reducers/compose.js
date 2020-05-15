@@ -27,6 +27,9 @@ import {
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
+  COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE,
+  COMPOSE_QUOTEE_INSERT,
+  COMPOSE_QUOTEE_CLEAR,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
   COMPOSE_UPLOAD_CHANGE_SUCCESS,
   COMPOSE_UPLOAD_CHANGE_FAIL,
@@ -59,6 +62,8 @@ const initialState = ImmutableMap({
   in_reply_to: null,
   quote_from: null,
   quote_from_url: null,
+  does_notify_to_quotees: false,
+  quotees: null,
   is_composing: false,
   is_submitting: false,
   is_changing_upload: false,
@@ -102,6 +107,7 @@ function clearAll(state) {
     map.set('in_reply_to', null);
     map.set('quote_from', null);
     map.set('quote_from_uri', null);
+    map.set('quotees', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
@@ -305,6 +311,7 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('id'));
       map.set('quote_from', null);
       map.set('quote_from_url', null);
+      map.set('quotees', null);
       map.set('text', statusToTextMentions(state, action.status));
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('focusDate', new Date());
@@ -346,6 +353,7 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', null);
       map.set('quote_from', null);
       map.set('quote_from_url', null);
+      map.set('quotees', null);
       map.set('text', '');
       map.set('spoiler', false);
       map.set('spoiler_text', '');
@@ -416,6 +424,10 @@ export default function compose(state = initialState, action) {
 
         return item;
       }));
+  case COMPOSE_DOES_NOTIFY_TO_QUOTEES_CHANGE:
+    return state.set('does_notify_to_quotees', action.value);
+  case COMPOSE_QUOTEE_INSERT:
+    return state.set('quotees', statusToTextMentions(state, action.status));
   case REDRAFT:
     return state.withMutations(map => {
       map.set('text', action.raw_text || unescapeHTML(rejectQuoteAltText(expandMentions(action.status))));

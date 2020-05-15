@@ -1128,6 +1128,10 @@
       {
         "defaultMessage": "Cancel",
         "id": "quote_indicator.cancel"
+      },
+      {
+        "defaultMessage": "Send a mention to original tooter",
+        "id": "quote_indicator.states.does_notify"
       }
     ],
     "path": "app/javascript/mastodon/features/compose/components/quote_indicator.json"
