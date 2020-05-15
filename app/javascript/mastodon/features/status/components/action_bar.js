@@ -263,6 +263,7 @@ class ActionBar extends React.PureComponent {
 
     let reblogIcon = 'retweet';
     if (status.get('visibility') === 'direct') reblogIcon = 'envelope';
+    else if (status.get('visibility') === 'unleakable') reblogIcon = 'low-vision';
     else if (status.get('visibility') === 'private') reblogIcon = 'lock';
 
     return (

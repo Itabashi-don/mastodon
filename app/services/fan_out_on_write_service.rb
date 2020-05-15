@@ -12,6 +12,9 @@ class FanOutOnWriteService < BaseService
       deliver_to_own_conversation(status)
     elsif status.limited_visibility?
       deliver_to_mentioned_followers(status)
+    elsif status.unleakable_visibility?
+      deliver_to_self(status) if status.account.local?
+      deliver_to_users_followed_by_author(status)
     else
       deliver_to_self(status) if status.account.local?
       deliver_to_followers(status)
@@ -40,6 +43,16 @@ class FanOutOnWriteService < BaseService
 
     status.account.followers_for_local_distribution.select(:id).reorder(nil).find_in_batches do |followers|
       FeedInsertWorker.push_bulk(followers) do |follower|
+        [status.id, follower.id, :home]
+      end
+    end
+  end
+
+  def deliver_to_users_followed_by_author(status)
+    Rails.logger.debug "Delivering status #{status.id} to local users followed by author"
+
+    status.account.followers_for_local_distribution.select(:id).reorder(nil).find_in_batches do |followers|
+      FeedInsertWorker.push_bulk(followers.select { |follower| status.account.following?(follower) }) do |follower|
         [status.id, follower.id, :home]
       end
     end

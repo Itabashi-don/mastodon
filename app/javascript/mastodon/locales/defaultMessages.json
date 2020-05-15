@@ -1097,6 +1097,14 @@
         "id": "privacy.private.long"
       },
       {
+        "defaultMessage": "Unleakable",
+        "id": "privacy.unleakable.short"
+      },
+      {
+        "defaultMessage": "Post to local users you're following only",
+        "id": "privacy.unleakable.long"
+      },
+      {
         "defaultMessage": "Direct",
         "id": "privacy.direct.short"
       },
@@ -1269,6 +1277,10 @@
       {
         "defaultMessage": "locked",
         "id": "compose_form.lock_disclaimer.lock"
+      },
+      {
+        "defaultMessage": "Unleakable posts are for local users you're following, unlike {private}.",
+        "id": "compose_form.unleakable_warning"
       },
       {
         "defaultMessage": "This toot won't be listed under any hashtag as it is unlisted. Only public toots can be searched by hashtag.",
