@@ -1224,6 +1224,8 @@ ja:
     contrast: Mastodon (ハイコントラスト)
     default: Mastodon (ダーク)
     mastodon-light: Mastodon (ライト)
+    material-dark: マテリアル (ダーク)
+    material-light: マテリアル (ライト)
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"

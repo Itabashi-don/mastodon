@@ -1,0 +1,8 @@
+[submodule "themes/material-dark"]
+	path = themes/material-dark
+	url = https://github.com/kyori19/Mastodon-Material.git
+	branch = v2-dark
+[submodule "themes/material-light"]
+	path = themes/material-light
+	url = https://github.com/kyori19/Mastodon-Material.git
+	branch = v2-light
