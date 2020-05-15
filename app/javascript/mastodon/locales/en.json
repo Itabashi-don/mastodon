@@ -333,6 +333,7 @@
   "privacy.unlisted.long": "Visible for all, but not in public timelines",
   "privacy.unlisted.short": "Unlisted",
   "quote_indicator.cancel": "Cancel",
+  "quote_indicator.states.does_notify": "Send a mention to original tooter",
   "refresh": "Refresh",
   "regeneration_indicator.label": "Loading…",
   "regeneration_indicator.sublabel": "Your home feed is being prepared!",
