@@ -12,6 +12,7 @@ assets_host   = Rails.configuration.action_controller.asset_host
 assets_host ||= host_to_url(base_host)
 
 github_host = "https://raw.githubusercontent.com"
+google_fonts_host = "https://fonts.gstatic.com"
 
 media_host   = host_to_url(ENV['S3_ALIAS_HOST'])
 media_host ||= host_to_url(ENV['S3_CLOUDFRONT_HOST'])
